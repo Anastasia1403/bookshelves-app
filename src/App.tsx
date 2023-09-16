@@ -1,24 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./redux/store";
+import { Button } from "antd";
 
 function App() {
+  const dispatch = useDispatch();
+  const books = useSelector((state: RootState) => state.books.list);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Button onClick={() => dispatch({ type: "FETCH_BOOKS" })}>fetch</Button>
+      {books && books.map((book: any) => <div>{book.title}</div>)}
     </div>
   );
 }
